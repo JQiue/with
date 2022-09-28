@@ -1,0 +1,25 @@
+{
+  "name": "with",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "pnpm@7.12.1",
+  "scripts": {},
+  "author": "JQiue",
+  "license": "ISC",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.23.1",
+    "typescript": "^4.8.3"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "axios-timing": "^1.0.2"
+  }
+}
