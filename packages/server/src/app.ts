@@ -1,5 +1,6 @@
 import http from 'http';
 import express, {Response, NextFunction } from 'express';
+import morgan from 'morgan'
 import { Server, Socket } from 'socket.io';
 import * as dotenv from 'dotenv'
 dotenv.config();
@@ -43,7 +44,8 @@ app.use((req: CustomeRequest, res: Response, next: NextFunction) => {
   console.log(songStatus);
   next();
 });
-app.use(router);
+app.use(morgan('tiny'));
+app.use('/v1/api', router);
 app.use((req, res) => {
   res.send(404);
 });

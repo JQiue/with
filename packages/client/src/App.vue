@@ -5,6 +5,10 @@ import { RouterLink, RouterView } from 'vue-router';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import 'vfonts/Lato.css'
+
+console.log(import.meta.env);
+console.log(import.meta.env._API_URL);
+
 interface List {
   list: {
     [key: string]: {
@@ -17,8 +21,10 @@ interface List {
   }
 }
 
-const BaseURL = 'http://1.117.21.196';
-axios.defaults.baseURL = BaseURL;
+const API_URL = ref(import.meta.env._API_URL + '/v1/api');
+console.log(API_URL.value);
+
+axios.defaults.baseURL = API_URL.value;
 const socket = io('ws://1.117.21.196');
 const { player } = reactive({ player: new Audio() });
 const list = reactive<List>({ list: {} });
@@ -106,7 +112,7 @@ const next = () => {
 };
 
 const play = (id: string) => {
-  player.src = BaseURL + '/song?id=' + id;
+  player.src = API_URL.value + '/song?id=' + id;
   player.play();
   playStatus.value.name = list.list[id].name
 }
@@ -125,7 +131,7 @@ onMounted(async () => {
   await getList();
   for (const key in list.list) {
     if (Object.prototype.hasOwnProperty.call(list.list, key)) {
-      player.src = BaseURL + '/song?id=' + key;
+      player.src = API_URL.value + '/song?id=' + key;
       playStatus.value.name = list.list[key].name;
     }
   }
@@ -157,7 +163,7 @@ onUpdated(() => {
         <div>音量</div>
         <div>下载</div>
         <div>倍速</div>
-        <n-upload action="http://1.117.21.196/upload">
+        <n-upload :action="API_URL + '/upload'">
           <n-button>上传文件</n-button>
         </n-upload>
       </div>

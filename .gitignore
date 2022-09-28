@@ -30,4 +30,3 @@ coverage
 # 
 songs.json
 songs
-*.env
