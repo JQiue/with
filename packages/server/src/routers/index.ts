@@ -21,7 +21,7 @@ const upload = multer({
 const router = express.Router();
 
 router.get('/song', (req: CustomeRequest, res: Response) => {
-  res.send(getSong(req, res));
+  getSong(req, res)
 });
 
 router.post('/current-time', (req: CustomeRequest, res) => {

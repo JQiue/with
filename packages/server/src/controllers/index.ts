@@ -1,5 +1,5 @@
 import path from 'path';
-import { readFileSync, writeFile } from 'fs';
+import { readFileSync, writeFile, createReadStream } from 'fs';
 import { Response } from 'express';
 import { io, songStatus } from '../app';
 import { CustomeRequest } from '../CustomRequest';
@@ -29,10 +29,13 @@ export const getSong = (req: CustomeRequest, res: Response) => {
   const { filename, size } = songs[req.query.id];
   const filePath = path.resolve(__dirname, '../songs/' + filename);
   res.set('Accept-Ranges', 'bytes');
-  res.set('Content-Type', 'audio/mpeg');
+  res.set('Content-Type', 'audio/mp3');
   res.set('Content-Length', '' + size);
   res.set('Content-Range', `bytes 0-${size}/${size}`);
-  return readFileSync(filePath);
+  const rs = createReadStream(filePath, {
+    highWaterMark: 1024 * 30
+  })
+  rs.pipe(res);
 };
 
 export const getList = (req: CustomeRequest, res: Response) => {

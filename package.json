@@ -5,6 +5,9 @@
   "packageManager": "pnpm@7.12.1",
   "scripts": {},
   "author": "JQiue",
+  "repository": {
+    "url": "https://github.com/JQiue/with.git"
+  },
   "license": "ISC",
   "workspaces": [
     "client",
